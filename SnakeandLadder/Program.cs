@@ -11,10 +11,12 @@
             // UC3 Options array
             string[] options = { "No Play", "Ladder", "Snake" };
             Random rand = new Random();
-
+            //UC6
+            int dicecount = 0;
             // UC4 Repeat until position reaches 100
             while (position < 100)
             {
+                dicecount++; //UC6
                 // UC2 Roll dice
                 int dice = rand.Next(1, 7);
 
@@ -26,27 +28,25 @@
 
                 if (chosen == "No Play")
                 {
-                    // Stay in same position
-                    Console.WriteLine("No Play  Position stays same: " + position);
+                    Console.WriteLine($"Roll#{dicecount}: Dice={dice}, Option={chosen} -> Stay at {position}");
                 }
                 else if (chosen == "Ladder")
                 {
-                    //UC5
                     if (position + dice <= 100)
                     {
                         position += dice;
-                        Console.WriteLine("Ladder! Move ahead -> New Position: " + position);
+                        Console.WriteLine($"Roll#{dicecount}: Dice={dice}, Option={chosen} -> Move ahead to {position}");
                     }
                     else
                     {
-                        Console.WriteLine($"Ladder roll {dice} exceeds 100 -> Stay at {position}");
+                        Console.WriteLine($"Roll#{dicecount}: Dice={dice}, Option={chosen} -> Roll exceeds 100, stay at {position}");
                     }
                 }
                 else // Snake
                 {
                     position -= dice;
                     if (position < 0) position = 0;
-                    Console.WriteLine("Snake! Move behind <- New Position: " + position);
+                    Console.WriteLine($"Roll#{dicecount}: Dice={dice}, Option={chosen} -> Move behind to {position}");
                 }
             }
 
