@@ -11,7 +11,7 @@
             // UC3 Options array
             string[] options = { "No Play", "Ladder", "Snake" };
             Random rand = new Random();
-
+            
             // UC4 Repeat until position reaches 100
             while (position < 100)
             {
@@ -31,8 +31,16 @@
                 }
                 else if (chosen == "Ladder")
                 {
-                    position += dice;
-                    Console.WriteLine("Ladder! Move ahead -> New Position: " + position);
+                    //UC5
+                    if (position + dice <= 100)
+                    {
+                        position += dice;
+                        Console.WriteLine("Ladder! Move ahead -> New Position: " + position);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Ladder roll {dice} exceeds 100 -> Stay at {position}");
+                    }
                 }
                 else // Snake
                 {
