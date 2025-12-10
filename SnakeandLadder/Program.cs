@@ -4,58 +4,83 @@
     {
         static void Main(string[] args)
         {
-            // UC1 Start at position 0
-            int position = 0;
-            Console.WriteLine("UC4 Player starts at position: " + position);
+            // UC1 Start positions
+            int player1 = 0;
+            int player2 = 0;
 
-            // UC3 Options array
+            Console.WriteLine("UC7 Game Started!");
+            Console.WriteLine("Player 1 starts at 0");
+            Console.WriteLine("Player 2 starts at 0");
+
+            // UC3 Options
             string[] options = { "No Play", "Ladder", "Snake" };
             Random rand = new Random();
 
-            // UC6: Count number of dice rolls
-            int diceCount = 0;
+            // UC6 Dice count
+            int dicecount = 0;
 
-            // UC4 Repeat until position reaches 100
-            while (position < 100)
+            // Track turns (Player1 starts first)
+            bool isPlayer1Turn = true;
+
+            // UC7 Play until someone reaches exactly 100
+            while (player1 < 100 && player2 < 100)
             {
-                diceCount++;   // Count every dice roll (UC6)
+                dicecount++;
 
-                // UC2 Roll dice
                 int dice = rand.Next(1, 7);
-
-                // UC3 Pick random option
-                int opt = rand.Next(0, 3); // 0 = No Play, 1 = Ladder, 2 = Snake
+                int opt = rand.Next(0, 3);
                 string chosen = options[opt];
 
-                Console.WriteLine($"\nRoll #{diceCount}: Dice = {dice}, Option = {chosen}");
+                string currentPlayer = isPlayer1Turn ? "Player 1" : "Player 2";
+                int position = isPlayer1Turn ? player1 : player2;
+
+                Console.WriteLine($"\n{currentPlayer} -> Roll#{dicecount}: Dice={dice}, Option={chosen}");
 
                 if (chosen == "No Play")
                 {
-                    Console.WriteLine($"Roll #{diceCount}: No Play -> Stay at {position}");
+                    Console.WriteLine($"{currentPlayer} stays at {position}");
                 }
                 else if (chosen == "Ladder")
                 {
-                    //UC5 exact 100 rule
                     if (position + dice <= 100)
                     {
                         position += dice;
-                        Console.WriteLine($"Roll #{diceCount}: Ladder -> Move to {position}");
+                        Console.WriteLine($"{currentPlayer} climbs Ladder -> Moves to {position}");
                     }
                     else
                     {
-                        Console.WriteLine($"Roll #{diceCount}: Ladder but exceed 100 -> Stay at {position}");
+                        Console.WriteLine($"{currentPlayer} roll exceeds 100 -> stays at {position}");
                     }
+
+                    // Update player's position
+                    if (isPlayer1Turn) player1 = position;
+                    else player2 = position;
+
+                    // Ladder → extra turn → do NOT switch player
+                    continue;
                 }
                 else // Snake
                 {
                     position -= dice;
                     if (position < 0) position = 0;
-                    Console.WriteLine($"Roll #{diceCount}: Snake -> Move to {position}");
+                    Console.WriteLine($"{currentPlayer} bitten by Snake -> Moves to {position}");
                 }
+
+                // Update position after NoPlay/Snake
+                if (isPlayer1Turn) player1 = position;
+                else player2 = position;
+
+                // Switch turn
+                isPlayer1Turn = !isPlayer1Turn;
             }
 
-            Console.WriteLine($"\nPlayer reached 100! Game over.");
-            Console.WriteLine($"Total dice rolls (UC6): {diceCount}");
+            Console.WriteLine("\n-------------------------------");
+            Console.WriteLine($"Total Dice Rolled: {dicecount}");
+
+            if (player1 == 100)
+                Console.WriteLine(" Player 1 Wins the Game!");
+            else
+                Console.WriteLine(" Player 2 Wins the Game!");
         }
     }
 }
