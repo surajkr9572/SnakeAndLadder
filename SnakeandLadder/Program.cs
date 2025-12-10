@@ -27,18 +27,26 @@
                 if (chosen == "No Play")
                 {
                     // Stay in same position
-                    Console.WriteLine("No Play → Position stays same: " + position);
+                    Console.WriteLine("No Play  Position stays same: " + position);
                 }
                 else if (chosen == "Ladder")
                 {
-                    position += dice;
-                    Console.WriteLine("Ladder! Move ahead → New Position: " + position);
+                    //UC5
+                    if (position + dice <= 100)
+                    {
+                        position += dice;
+                        Console.WriteLine("Ladder! Move ahead -> New Position: " + position);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Ladder roll {dice} exceeds 100 -> Stay at {position}");
+                    }
                 }
                 else // Snake
                 {
                     position -= dice;
                     if (position < 0) position = 0;
-                    Console.WriteLine("Snake! Move behind → New Position: " + position);
+                    Console.WriteLine("Snake! Move behind <- New Position: " + position);
                 }
             }
 
