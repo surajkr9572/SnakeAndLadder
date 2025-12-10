@@ -4,39 +4,45 @@
     {
         static void Main(string[] args)
         {
-            // UC1
+            // UC1 Start at position 0
             int position = 0;
-            Console.WriteLine("UC1: Player starts at position: " + position);
+            Console.WriteLine("UC4 Player starts at position: " + position);
 
-            // UC2
-            Random rand = new Random();
-            int dice = rand.Next(1, 7);
-            int opt = rand.Next(0, 3);
-            Console.WriteLine("UC2 Dice rolled: " + dice);
-
-            //UC3
+            // UC3 Options array
             string[] options = { "No Play", "Ladder", "Snake" };
-            string chosen = options[opt];
+            Random rand = new Random();
 
-            Console.WriteLine("UC3: Dice = " + dice);
-            Console.WriteLine("UC3: Option = " + chosen);
+            // UC4 Repeat until position reaches 100
+            while (position < 100)
+            {
+                // UC2 Roll dice
+                int dice = rand.Next(1, 7);
 
-            if (chosen == "No Play")
-            {
-               
-                Console.WriteLine("Stay at: " + position);
+                // UC3 Pick random option
+                int opt = rand.Next(0, 3); // 0 = No Play, 1 = Ladder, 2 = Snake
+                string chosen = options[opt];
+
+                Console.WriteLine($"\nDice = {dice}, Option = {chosen}");
+
+                if (chosen == "No Play")
+                {
+                    // Stay in same position
+                    Console.WriteLine("No Play → Position stays same: " + position);
+                }
+                else if (chosen == "Ladder")
+                {
+                    position += dice;
+                    Console.WriteLine("Ladder! Move ahead → New Position: " + position);
+                }
+                else // Snake
+                {
+                    position -= dice;
+                    if (position < 0) position = 0;
+                    Console.WriteLine("Snake! Move behind → New Position: " + position);
+                }
             }
-            else if (chosen == "Ladder")
-            {
-                position += dice;
-                Console.WriteLine("Ladder -> New position: " + position);
-            }
-            else // Snake
-            {
-                position -= dice;
-                if (position < 0) position = 0;
-                Console.WriteLine("Snake -> New position: " + position);
-            }
+
+            Console.WriteLine("\nPlayer reached 100! Game over.");
         }
     }
 }
