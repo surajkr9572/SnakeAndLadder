@@ -78,9 +78,9 @@
             Console.WriteLine($"Total Dice Rolled: {dicecount}");
 
             if (player1 == 100)
-                Console.WriteLine("Player 1 Wins the Game!");
+                Console.WriteLine(" Player 1 Wins the Game!");
             else
-                Console.WriteLine("Player 2 Wins the Game!");
+                Console.WriteLine(" Player 2 Wins the Game!");
         }
     }
 }
